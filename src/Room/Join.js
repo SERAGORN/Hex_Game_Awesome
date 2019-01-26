@@ -13,7 +13,10 @@ import './Room.css'
         name_roow_2: ''
     }
 
-
+    componentDidMount() {
+        console.log("aaaa")
+        this.props.store.socketConnect()
+    }
 
     renderWindow () {
         return (
@@ -38,7 +41,7 @@ import './Room.css'
                         })}/>
             </div>
             <div>
-                <NavLink to={this.props.path_to+"/go"} onClick={() => {}}>Создать</NavLink>
+                <NavLink to={this.props.path_to+"/go"} onClick={() => this.props.store.createRoom()}>Создать</NavLink>
             </div>
             <div>Название</div>
             <input className="room-name-input" value={this.state.name_roow_2} onChange={(evt)=>
@@ -49,7 +52,7 @@ import './Room.css'
                     this.props.store.room_status = 'join_room'
                     })}/>
             <div>
-                <NavLink to={this.props.path_to+"/go"} onClick={() => this.joinLogic()}>Войти в комнату</NavLink>
+                <NavLink to={this.props.path_to+"/go"} onClick={() => this.props.store.joinRooom()}>Войти в комнату</NavLink>
             </div>
         </div>
         )
