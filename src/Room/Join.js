@@ -22,7 +22,7 @@ import './Room.css'
         return (
         <div>
             <div>
-                <div>Имя</div>
+                <div>Nick Name</div>
                 <input className="room-name-input" value={this.state.name} onChange={(evt)=>
                     this.setState({
                         name: evt.target.value
@@ -31,7 +31,7 @@ import './Room.css'
                         })}/>
             </div>
             <div>
-                <div>Название</div>
+                <div>Lobby Name</div>
                 <input className="room-name-input" value={this.state.name_room_1} onChange={(evt)=>
                     this.setState({
                         name_room_1: evt.target.value
@@ -41,9 +41,9 @@ import './Room.css'
                         })}/>
             </div>
             <div>
-                <NavLink to={this.props.path_to+"/go"} onClick={() => this.props.store.createRoom()}>Создать</NavLink>
+                <NavLink to={this.props.path_to+"/go"} onClick={() => this.props.store.createRoom()}>Create Lobby</NavLink>
             </div>
-            <div>Название</div>
+            <div>Lobby Name</div>
             <input className="room-name-input" value={this.state.name_roow_2} onChange={(evt)=>
                 this.setState({
                     name_roow_2: evt.target.value
@@ -52,7 +52,7 @@ import './Room.css'
                     this.props.store.room_status = 'join_room'
                     })}/>
             <div>
-                <NavLink to={this.props.path_to+"/go"} onClick={() => this.props.store.joinRooom()}>Войти в комнату</NavLink>
+                <NavLink to={this.props.path_to+"/go"} onClick={() => this.props.store.joinRooom()}>Join Lobby</NavLink>
             </div>
         </div>
         )
