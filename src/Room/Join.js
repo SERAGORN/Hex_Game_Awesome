@@ -49,19 +49,25 @@ import './Room.css'
                     this.props.store.room_status = 'join_room'
                     })}/>
             <div>
-                <NavLink to={this.props.path_to+"/go"} onClick={() => {}}>Войти в комнату</NavLink>
+                <NavLink to={this.props.path_to+"/go"} onClick={() => this.joinLogic()}>Войти в комнату</NavLink>
             </div>
         </div>
         )
     }
 
-  render() {
-    return (
-        <div className="room-container-join">
-            {this.renderWindow()}
-        </div>
-    )
-  }
+    joinLogic=(evt)=>{
+
+    }
+
+    
+
+    render() {
+        return (
+            <div className="room-container-join">
+                {this.renderWindow()}
+            </div>
+        )
+    }
 }
 
 export default Join;

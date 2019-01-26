@@ -5,11 +5,9 @@ export default class First {
     constructor(main) {
         this.main = main
     }
-    @observable name = ""
 
     @observable message = false
-
-    @observable users = false
+    @observable users = []
 
     @observable room_status = ""
 
@@ -54,7 +52,7 @@ export default class First {
     }
     @action sendMove = (x,y) => {
         this.socket.emit("send_move" , {
-            name: this.name,
+            user: this.users[this.userIndex].name,
             x: x,
             y: y
         })

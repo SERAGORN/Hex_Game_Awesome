@@ -12,7 +12,6 @@ const store = new Store("route")
 const routes = store.returnRoutes()
 
 class App extends Component {
-
   render() {
     return (
       <Provider {...routes}>

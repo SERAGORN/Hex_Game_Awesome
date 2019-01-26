@@ -6,10 +6,10 @@
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center
+  justify-content: center;
 }
 .hexagon {
-  background: #1e90ff;
+  background: #000;
   -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   opacity: 0.8;
@@ -22,8 +22,14 @@
 .visible{
   background: green;
 }
-.hexagon:hover{
-  background: #fff
+.user-visible{
+  background-color: #fffa;
+}
+.hexagon-box:hover .hexagon.visible{
+  background: #fff;
+}
+.hexagon-box:hover .hexagon.user-visible{
+  background: #fff;
 }
 .hexagon-none{
   background: #000
