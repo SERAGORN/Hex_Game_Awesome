@@ -45,7 +45,7 @@ import { observer, inject } from 'mobx-react';
             <div className="UIBottom-container">
                 {this.renderTools()}
                 {this.renderPerson()}
-                {this.otherPersons()}
+                {/* {this.otherPersons()} */}
             </div>
         );
     }

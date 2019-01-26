@@ -5,11 +5,9 @@ export default class First {
     constructor(main) {
         this.main = main
     }
-    @observable name = ""
 
     @observable message = false
-
-    @observable users = false
+    @observable users = []
 
     @observable first_ob = "Лобби"
 
@@ -17,28 +15,27 @@ export default class First {
         if (!this.socket) {
             this.socket = io("http://192.168.77.46:3010/")
             this.socket.emit('user_join',{
-                name: this.name
+                name: this.users.name
             })
             this.socket.on('user_join', (msg)=> {
                 if (!this.users) {
                     this.users = []
+                } else {
+                    this.users = msg
                 }
-                this.users = msg
-                console.log(JSON.stringify(this.users))
+            })
+        } else {
+            this.socket.on('chat_mess', (msg)=> {
+                if (!this.message) {
+                    this.message = []
+                }
+                this.message.push(msg)
+            })
+            
+            this.socket.on('send_move',(data)=>{
+                console.log(data)
             })
         }
-        
-        this.socket.on('chat_mess', (msg)=> {
-            if (!this.message) {
-                this.message = []
-            }
-            this.message.push(msg)
-            console.log(JSON.stringify(this.message))
-        })
-        
-        this.socket.on('send_move',(data)=>{
-            console.log(data)
-        })
     }
 
     @action sendMessage = (msg) => {
@@ -49,7 +46,7 @@ export default class First {
     }
     @action sendMove = (x,y) => {
         this.socket.emit("send_move" , {
-            name: this.name,
+            user: this.users[this.userIndex].name,
             x: x,
             y: y
         })
