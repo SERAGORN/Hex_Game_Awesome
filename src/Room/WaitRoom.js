@@ -68,9 +68,11 @@ import './Room.css'
 
     startGame() {
         return (
-            <NavLink to={""} onClick={() => {}}>Start Game</NavLink>
+            <div onClick={() => this.props.store.startGame()}>Start Game</div>
         )
     }
+
+    
 
     render() {
         return (

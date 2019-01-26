@@ -27,8 +27,8 @@ import './Room.css'
                     this.setState({
                         name: evt.target.value
                     }, () => {
-                        this.props.store.name = this.state.name
-                        })}/>
+                        this.props.store.users.push({name: this.state.name})
+                    })}/>
             </div>
             <div>
                 <div>Lobby Name</div>

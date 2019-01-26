@@ -9,6 +9,8 @@ export default class First {
     @observable message = false
     @observable currentMove = 0
     @observable userIndex = 0
+    @observable updater = 0
+
 
 
     @observable users = []
@@ -23,8 +25,27 @@ export default class First {
             // this.socket.emit('user_join',{
             //     name: this.name
             // })
+            this.socket.on(this.room_name,(msg)=>{
+                console.log(msg)
+                if(msg.status == "start_game"){
+                    this.updater = 1
+                }
+                if(msg.status == "move") {
+
+                }
+            })
             console.log(this.room_status)
             console.log(this.room_name)
+    }
+
+    @action startMove = (x,y) => {
+        this.socket.emit("go", {
+            "room" : this.room_name,
+            "name" : this.users[this.userIndex].name,
+            "index" : this.userIndex,
+            "x":  x,
+            "y":  y
+        })
     }
 
     @action createRoom = () => {
@@ -80,10 +101,21 @@ export default class First {
     }
 
     @action sendMove = (x,y) => {
-        this.socket.emit("send_move" , {
-            "user": this.users[this.userIndex].name,
+        this.socket.emit(this.room_name, {
+            "name": this.users[this.userIndex].name,
+            "index": this.userIndex,
             "x": x,
-            "y": y
+            "y": y,
+            "status": "move",
+            
+        })
+    }
+
+    @action startGame = () => {
+        this.socket.emit("start", {
+            "name": this.users[this.userIndex].name,
+            "room": this.room_name,
+            "status": "start",
         })
     }
 }
