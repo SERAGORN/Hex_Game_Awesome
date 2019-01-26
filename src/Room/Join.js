@@ -13,7 +13,7 @@ import './Room.css'
     renderWindow () {
         return (
         <div>
-            <input value={this.state.inputValue} onChange={(evt)=>
+            <input className="room-name-input" value={this.state.inputValue} onChange={(evt)=>
                 this.setState({
                     inputValue: evt.target.value
                 }, () => {

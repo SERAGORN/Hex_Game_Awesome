@@ -15,7 +15,7 @@ export default class First {
 
     @action socketConnect = () => {
         if (!this.socket) {
-            this.socket = io("http://localhost:3010")
+            this.socket = io("http://192.168.77.46:3010/")
             this.socket.emit('user_join',{
                 name: this.name
             })
