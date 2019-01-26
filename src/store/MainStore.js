@@ -6,7 +6,7 @@ export default class First {
         this.main = main
     }
 
-    @observable message = []
+    @observable message = false
     @observable users = []
 
     @observable room_status = ""
@@ -66,8 +66,12 @@ export default class First {
             "room": this.room_name
         })
         this.socket.on("chat_mess", (msg) =>{
-            this.message = msg
             console.log(JSON.stringify(msg))
+            // this.socket.emit('join_room', {
+            //     room: this.room_name,
+            //     status: 'user_join',
+            //     name: this.name
+            // })
         })
     }
 
