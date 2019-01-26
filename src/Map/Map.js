@@ -1,6 +1,18 @@
 import React, { Component, Fragment } from 'react';
 import { observer, inject } from 'mobx-react';
 
+import hex1 from '../assets/hex/1.png'
+import hex2 from '../assets/hex/2.png'
+import hex3 from '../assets/hex/3.png'
+import hex4 from '../assets/hex/4.png'
+import hex5 from '../assets/hex/5.png'
+
+import wizard from '../assets/persons/zloi.png'
+
+
+
+
+
 import './Map.css'
 
 @inject('store')
@@ -35,7 +47,8 @@ import './Map.css'
       x: 14,
       y: 3,
       index: 2,
-      color: "blue"
+      color: "blue",
+      src: wizard
     })
     this.props.store.users.push({
       name: "arbidol",
@@ -45,6 +58,19 @@ import './Map.css'
       color: "grey"
     })
     console.log(this.props.store.users)
+  }
+
+  randomHex = () => {
+    let rand = Math.random()
+    if (rand > 0 && rand < 0.2)
+    return hex1
+    else if (rand >= 0.2 && rand < 0.4)
+    return hex3
+    else if (rand >= 0.4 && rand < 0.6)
+    return hex4
+    else if (rand>=0.6 && rand < 0.8)
+    return hex5
+    else return hex2
   }
 
   hexRender = (hex_map,counter) => {
@@ -167,9 +193,12 @@ import './Map.css'
                 }
                 this.changePos(coord)
               }}>
-                <div className={hexagon} style={{width: b, height: 4*a}}></div>
+                <img style={{position: 'absolute', width: 115}} src={this.randomHex()}></img>
+                <div className={hexagon} style={{width: b, height: 4*a}}>
+                
+                </div>
+                
                 {this.playerCard(curPos)}
-                <div className="kek-counter">{hex_map.x[counter]} - {index}</div>
               </div>
             )
           })}
@@ -213,7 +242,7 @@ import './Map.css'
 
   playerCard=(position)=>{
     return(
-      <div className="player" style={position}></div>
+      <div className="player" style={position}><img src={wizard}/></div>
     )
   }
 

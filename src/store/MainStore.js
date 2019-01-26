@@ -14,7 +14,7 @@ export default class First {
     @observable first_ob = "Лобби"
 
     @action socketConnect = () => {
-            this.socket = io("http://192.168.77.46:3010/")
+            this.socket = io("http://192.168.77.88:3010/")
             // this.socket.emit('user_join',{
             //     name: this.name
             // })
