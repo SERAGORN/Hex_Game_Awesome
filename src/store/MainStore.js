@@ -11,7 +11,7 @@ export default class First {
 
     @observable room_status = ""
 
-    @observable first_ob = "Лобби"
+    @observable first_ob = "Lobby"
 
     @action socketConnect = () => {
             this.socket = io("http://192.168.77.88:3010/")
@@ -20,8 +20,6 @@ export default class First {
             // })
             console.log(this.room_status)
             console.log(this.room_name)
-
-
             
             if (this.room_status == 'create_room') {
                 this.socket.emit(this.room_status, {

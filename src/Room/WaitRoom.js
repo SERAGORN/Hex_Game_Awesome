@@ -64,7 +64,7 @@ import './Room.css'
 
     startGame() {
         return (
-            <NavLink to={""} onClick={() => {}}>Начать игру</NavLink>
+            <NavLink to={""} onClick={() => {}}>Start Game</NavLink>
         )
     }
 

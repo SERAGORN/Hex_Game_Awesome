@@ -38,5 +38,15 @@ img {
   image-rendering: pixelated; /* Chrome */
   image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
   -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
+}
+p { 
+    font-family: '8BITWONDERNominal'; 
+    font-weight: normal; 
+    font-style: normal; 
+}
 
+body {
+  font-family: '8BITWONDERNominal'; 
+  font-weight: normal; 
+  font-style: normal; 
 }
