@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import UIMain from './UIMain.js';
+import UIMain from './UI/UIMain.js';
 import './App.css';
 
 class App extends Component {
