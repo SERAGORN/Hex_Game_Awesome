@@ -9,4 +9,8 @@
     width: 600px;
     height: 500px;
     background-color: #52637d;
+    display: flex;
+    background-color: #52637d;
+    justify-content: center;
+    align-items: center;
 }

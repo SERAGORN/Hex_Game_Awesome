@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
 import { NavLink } from "react-router-dom";
+import { observer, inject } from 'mobx-react';
 
 
 import './Room.css'
 
-class Join extends Component {
-
+@inject('store')
+@observer class Join extends Component {
+    state = {
+        inputValue: ''
+    }
     renderWindow () {
         return (
         <div>
-            <NavLink to={this.props.path_to+"/go"}>Войти в комнату</NavLink>
+            <input value={this.state.inputValue} onChange={(evt)=>
+                this.setState({
+                    inputValue: evt.target.value
+                }, () => {
+                    this.props.store.name = this.state.inputValue
+                    })}/>
+            <NavLink to={this.props.path_to+"/go"} onClick={() => {}}>Войти в комнату</NavLink>
         </div>
         )
     }

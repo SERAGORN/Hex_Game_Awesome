@@ -1,19 +1,46 @@
 import {observable, action} from 'mobx'
+import io from 'socket.io-client'
 
 export default class First {
     constructor(main) {
         this.main = main
     }
-    @observable first_ob = "Hello MOBX"
-    actionFirst () {
-        //this.root.rootFunc()
+    @observable name = ""
+
+    @observable message = false
+
+    @observable users = false
+
+    @observable first_ob = "Лобби"
+
+    @action socketConnect = () => {
+        if (!this.socket) {
+            this.socket = io("http://localhost:3010")
+            this.socket.emit('user_join',{
+                name: this.name
+            })
+            this.socket.on('user_join', (msg)=> {
+                if (!this.users) {
+                    this.users = []
+                }
+                this.users = msg
+                console.log(JSON.stringify(this.users))
+            })
+        }
+        
+        this.socket.on('chat_mess', (msg)=> {
+            if (!this.message) {
+                this.message = []
+            }
+            this.message.push(msg)
+            console.log(JSON.stringify(this.message))
+        })
     }
-    // @action first_to_root = () => {
-    //     this.main.second.second()
-    // }
-    goRoot() {
-        console.log("FIRST")
-        this.main.rootFunc()
-        this.main.second.goConsole()
+
+    @action sendMessage = (msg) => {
+        console.log(msg)
+        this.socket.emit("chat_mess" , {
+            message: msg
+        })
     }
 }
