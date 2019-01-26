@@ -19,7 +19,9 @@ import './Room.css'
                 }, () => {
                     this.props.store.name = this.state.inputValue
                     })}/>
-            <NavLink to={this.props.path_to+"/go"} onClick={() => {}}>Войти в комнату</NavLink>
+            <div>
+                <NavLink to={this.props.path_to+"/go"} onClick={() => {}}>Войти в комнату</NavLink>
+            </div>
         </div>
         )
     }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { NavLink } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 
 import './Room.css'
@@ -44,6 +44,7 @@ import './Room.css'
                         </div>
                         )
                     })}
+
                 </div>
             )
         }
@@ -61,16 +62,23 @@ import './Room.css'
         )
     }
 
-  render() {
-    return (
-        <div className="room-container-wait-room">
-            {this.props.store.first_ob}
-            {this.renderMessage()}
-            {this.renderMessageSend()}
-            {this.renderUsers()}
-        </div>
-    )
-  }
+    startGame() {
+        return (
+            <NavLink to={""} onClick={() => {}}>Начать игру</NavLink>
+        )
+    }
+
+    render() {
+        return (
+            <div className="room-container-wait-room">
+                {this.props.store.first_ob}
+                {this.renderMessage()}
+                {this.renderMessageSend()}
+                {this.renderUsers()}
+                {this.startGame()}
+            </div>
+        )
+    }
 }
 
 export default WaitRoom;
