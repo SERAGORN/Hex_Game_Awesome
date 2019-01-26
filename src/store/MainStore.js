@@ -4,7 +4,7 @@ export default class First {
     constructor(main) {
         this.main = main
     }
-    // @observable first_ob = "1"
+    @observable first_ob = "Hello MOBX"
     actionFirst () {
         //this.root.rootFunc()
     }
