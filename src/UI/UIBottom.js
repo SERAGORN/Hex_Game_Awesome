@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 
 import './UIBottom.css'
+import { observer, inject } from 'mobx-react';
 
-
-class UIBottom extends Component {
+@inject('store')
+@observer class UIBottom extends Component {
 
     renderTools = () => {
         return (
@@ -21,12 +22,21 @@ class UIBottom extends Component {
         )
     }
 
-    otherPersons = () => {
-        return (
-            <div className="UIBottom-other-persons">
 
-            </div>
-        )
+    otherPersons = () => {
+        if (this.props.store.users) {
+            return (
+                <div className="UIBottom-other-persons">
+                        {this.props.store.users.map(row => {
+                            return  (
+                            <div>
+                                {row.name}
+                            </div>
+                            )
+                        })}
+                </div>
+            )
+        }
     }
 
 

@@ -13,6 +13,7 @@ import './Room.css'
     renderWindow () {
         return (
         <div>
+<<<<<<< HEAD
             <input value={this.state.inputValue} onChange={(evt)=>
                 {if(this.state.inputValue.length < 10){
                     this.setState({
@@ -23,6 +24,17 @@ import './Room.css'
                 }}}
             />
             <NavLink to={this.props.path_to+"/go"} onClick={() => {}}>Войти в комнату</NavLink>
+=======
+            <input className="room-name-input" value={this.state.inputValue} onChange={(evt)=>
+                this.setState({
+                    inputValue: evt.target.value
+                }, () => {
+                    this.props.store.name = this.state.inputValue
+                    })}/>
+            <div>
+                <NavLink to={this.props.path_to+"/go"} onClick={() => {}}>Войти в комнату</NavLink>
+            </div>
+>>>>>>> master
         </div>
         )
     }
