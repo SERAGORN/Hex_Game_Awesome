@@ -1,6 +1,7 @@
 
 .hex-map-row-super-container {
   display: flex;
+  user-select: none;
 }
 .hexagon-box{
   position: relative;

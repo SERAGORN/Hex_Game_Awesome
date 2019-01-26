@@ -7,6 +7,10 @@ export default class First {
     }
 
     @observable message = false
+    @observable currentMove = 0
+    @observable userIndex = 0
+
+
     @observable users = []
 
     @observable room_status = ""
