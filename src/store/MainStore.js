@@ -11,34 +11,39 @@ export default class First {
 
     @observable users = false
 
+    @observable room_status = ""
+
     @observable first_ob = "Лобби"
 
     @action socketConnect = () => {
-        if (!this.socket) {
             this.socket = io("http://192.168.77.46:3010/")
-            this.socket.emit('user_join',{
-                name: this.name
-            })
-            this.socket.on('user_join', (msg)=> {
-                if (!this.users) {
-                    this.users = []
+            // this.socket.emit('user_join',{
+            //     name: this.name
+            // })
+            console.log(this.room_status)
+            console.log(this.room_name)
+
+
+            
+            if (this.room_status == 'create_room') {
+                this.socket.emit(this.room_status, {
+                    room: this.room_name
+                })
+                this.socket.on(this.room_name, (msg) =>{
+                    this.socket.emit('join_room', {
+                        room: this.room_name,
+                        status: 'user_join',
+                        name: this.name
+                    })
+                })
+                
+            } else {
+                this.socket.emit('join_room', {
+                    room: this.room_name,
+                    name: this.name
                 }
-                this.users = msg
-                console.log(JSON.stringify(this.users))
-            })
-        }
-        
-        this.socket.on('chat_mess', (msg)=> {
-            if (!this.message) {
-                this.message = []
+                )
             }
-            this.message.push(msg)
-            console.log(JSON.stringify(this.message))
-        })
-        
-        this.socket.on('send_move',(data)=>{
-            console.log(data)
-        })
     }
 
     @action sendMessage = (msg) => {
