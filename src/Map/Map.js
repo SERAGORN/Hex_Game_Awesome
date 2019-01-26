@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 
+import './Map.css'
+
 class Map extends Component {
   state = {
-    hex_map: [[1,1,1],[1,1,1,1,1,1,1],[1,1,1],[1,1,1],[1,1,1,1,1,1],[1,1,1],[1,1,1],]
+    hex_map: [[1,1,1],[1,1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],]
   }
 
   oneHex = (index) => {
@@ -12,7 +14,7 @@ class Map extends Component {
           return (      
             <div class="hexa">
               <div className="hex1">
-                <div className="hex2" style={{backgroundColor: "red"}}>
+                <div className="hex2" style={{backgroundColor:  "#282c34"}}>
                   {index},{lol}
                 </div>
               </div>
