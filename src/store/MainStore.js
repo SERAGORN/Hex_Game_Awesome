@@ -6,6 +6,8 @@ export default class First {
         this.main = main
     }
 
+    @observable currentMove = 0
+
     @observable message = false
     @observable users = []
 
