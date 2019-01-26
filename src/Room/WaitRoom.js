@@ -41,10 +41,11 @@ import './Room.css'
             console.log(users)
                 return (
                     <div>
+                        ИГРОКИ
                         {users.map(row => {
                             return  (
                             <div>
-                                {JSON.stringify(row)}
+                                {JSON.stringify(row.name)}
                             </div>
                             )
                         })}
