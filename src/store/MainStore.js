@@ -15,7 +15,7 @@ export default class First {
 
     @action socketConnect = () => {
         if (!this.socket) {
-            this.socket = io("http://localhost:3010")
+            this.socket = io("http://192.168.77.46:3010")
             this.socket.emit('user_join',{
                 name: this.name
             })
@@ -35,12 +35,23 @@ export default class First {
             this.message.push(msg)
             console.log(JSON.stringify(this.message))
         })
+        
+        this.socket.on('send_move',(data)=>{
+            console.log(data)
+        })
     }
 
     @action sendMessage = (msg) => {
         console.log(msg)
         this.socket.emit("chat_mess" , {
             message: msg
+        })
+    }
+    @action sendMove = (x,y) => {
+        this.socket.emit("send_move" , {
+            name: this.name,
+            x: x,
+            y: y
         })
     }
 }

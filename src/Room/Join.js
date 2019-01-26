@@ -14,11 +14,14 @@ import './Room.css'
         return (
         <div>
             <input value={this.state.inputValue} onChange={(evt)=>
-                this.setState({
-                    inputValue: evt.target.value
-                }, () => {
-                    this.props.store.name = this.state.inputValue
-                    })}/>
+                {if(this.state.inputValue.length < 10){
+                    this.setState({
+                        inputValue: evt.target.value
+                    }, () => {
+                        this.props.store.name = this.state.inputValue
+                    })
+                }}}
+            />
             <NavLink to={this.props.path_to+"/go"} onClick={() => {}}>Войти в комнату</NavLink>
         </div>
         )

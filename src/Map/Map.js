@@ -1,14 +1,16 @@
 import React, { Component, Fragment } from 'react';
+import { observer, inject } from 'mobx-react';
 
 import './Map.css'
 
-class Map extends Component {
+@inject('store')
+@observer class Map extends Component {
   constructor(props){
     super(props)
     this.state = {
       player: null,
-      userName: "",
-      userPos: {}
+      userName: this.props.store.name,
+      userPos: []
     }
   }
 
@@ -21,7 +23,7 @@ class Map extends Component {
   }
 
   hexRender = (hex_map,counter) => {
-    let a = 60, 
+    let a = 30, 
         b = 2*a*Math.sqrt(3)
     return (
       <Fragment>
@@ -30,24 +32,54 @@ class Map extends Component {
           if(this.state.userPos.x === hex_map.x[counter] && this.state.userPos.y === index){
             curPos = { backgroundColor: "grey" }
           }
-          if(this.state.userPos.x % 2 == 1){
-            if(((this.state.userPos.x - hex_map.x[counter]) < 3 && (this.state.userPos.x - hex_map.x[counter]) > -1) || ((hex_map.x[counter] - this.state.userPos.x) < 3 && (hex_map.x[counter] - this.state.userPos.x) > -1)){
+          if(((this.state.userPos.x - hex_map.x[counter]) < 3 && (this.state.userPos.x - hex_map.x[counter]) > -1) || ((hex_map.x[counter] - this.state.userPos.x) < 3 && (hex_map.x[counter] - this.state.userPos.x) > -1)){
+            if(this.state.userPos.x % 2 == 1){
               if(this.state.userPos.x === hex_map.x[counter]){
-                if(((this.state.userPos.y - index) < 2) && ((this.state.userPos.y - index) > -2)){
+                if(((this.state.userPos.y - index) < 3) && ((this.state.userPos.y - index) > -3)){
                   hexagon += " visible"
+                } else {
+                  hexagon += " hexagon-none"
                 }
               }
               if(Math.abs(this.state.userPos.x - hex_map.x[counter]) == 1){
-                if((this.state.userPos.y - index) < 2 && (this.state.userPos.y - index) > -1 || ((index - this.state.userPos.y) < 2 && index - this.state.userPos.y > -1) ){
+                if((this.state.userPos.y - index) < 3 && (this.state.userPos.y - index) > 0 || ((index - this.state.userPos.y) < 2 && index - this.state.userPos.y > -1) ){
                   hexagon += " visible"
+                } else {
+                  hexagon += " hexagon-none"
                 }
               }
               if(Math.abs(this.state.userPos.x - hex_map.x[counter]) == 2){
                 if((this.state.userPos.y - index) < 2 && (this.state.userPos.y - index) > -1 || ((index - this.state.userPos.y) < 2 && index - this.state.userPos.y > -1) ){
-                  hexagon += " visible"                
+                  hexagon += " visible"
+                } else {
+                  hexagon += " hexagon-none"
+                }
+              }
+            } else {
+              if(this.state.userPos.x === hex_map.x[counter]){
+                if(((this.state.userPos.y - index) < 3) && ((this.state.userPos.y - index) > -3)){
+                  hexagon += " visible"
+                } else {
+                  hexagon += " hexagon-none"
+                }
+              }
+              if(Math.abs(this.state.userPos.x - hex_map.x[counter]) == 1){
+                if((this.state.userPos.y - index) < 2 && (this.state.userPos.y - index) > -1 || ((index - this.state.userPos.y) < 3 && index - this.state.userPos.y > 0) ){
+                  hexagon += " visible"
+                } else {
+                  hexagon += " hexagon-none"
+                }
+              }
+              if(Math.abs(this.state.userPos.x - hex_map.x[counter]) == 2){
+                if((this.state.userPos.y - index) < 2 && (this.state.userPos.y - index) > -1 || ((index - this.state.userPos.y) < 2 && index - this.state.userPos.y > -1) ){
+                  hexagon += " visible"               
+                } else {
+                  hexagon += " hexagon-none"
                 }
               }
             }
+          } else {
+            hexagon += " hexagon-none"
           }
           return (
             <div className="hexagon-box">
@@ -72,8 +104,8 @@ class Map extends Component {
 
   mapRender = () => {
     let a,b,x,y;
-    a = 20
-    b = 10
+    a = 30
+    b = 15
     let hex_map = {}
     hex_map.x = []
     hex_map.y = []
@@ -88,7 +120,7 @@ class Map extends Component {
         {hex_map.x.map((row, index) => {
           let margin = () => {
             if (index%2 == 0) {
-              return {marginTop: 120}
+              return {marginTop: 60}
             } else {
               return {marginTop: 0}
             }
@@ -112,7 +144,7 @@ class Map extends Component {
   changePos=(coord)=>{
     this.setState({
       userPos: coord
-    },()=>console.log(this.state.userPos))
+    },()=>this.props.store.sendMove(coord.x, coord.y))
   }
 
   render() {

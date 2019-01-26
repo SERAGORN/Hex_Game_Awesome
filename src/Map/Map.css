@@ -25,6 +25,9 @@
 .hexagon:hover{
   background: #fff
 }
+.hexagon-none{
+  background: #000
+}
 .player{
   width: 60px;
   height: 60px;
