@@ -1,0 +1,29 @@
+.UIBottom-container {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+}
+.UIBottom-person {
+    background: white;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+.UIBottom-person-tools {
+    background: white;
+    width: 100px;
+    height: 100px;
+}
+.UIBottom-other-persons {
+    position: absolute;
+    height: 100px;
+    width: 200px;
+    background: red;
+    bottom: 0px;
+    left: 100px;
+}
+.UIHeader-container {
+    position: fixed;
+    right: 0;
+    top: 0;
+}

@@ -5,6 +5,8 @@ import UIHeader from './UIHeader.js'
 
 import './UIMain.css'
 
+import UIBottom from './UIBottom.js';
+
 
 class UI extends Component {
 
@@ -22,6 +24,7 @@ class UI extends Component {
       <div className="UIMain-container">
         <UIHeader/>
         {this.renderMainMap()}
+        <UIBottom/>
       </div>
     );
   }
