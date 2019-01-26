@@ -34,19 +34,23 @@ import './Room.css'
     }
 
     renderUsers() {
-        if (this.props.store.users) {
-            return (
-                <div>
-                    {this.props.store.users.map(row => {
-                        return  (
-                        <div>
-                            {row.name}
-                        </div>
-                        )
-                    })}
+        let users
+        if (this.props.store.users_in_room.room){
+            console.log(this.props.store.users_in_room.users)
+          users = this.props.store.users_in_room.users
+            console.log(users)
+                return (
+                    <div>
+                        {users.map(row => {
+                            return  (
+                            <div>
+                                {JSON.stringify(row)}
+                            </div>
+                            )
+                        })}
 
-                </div>
-            )
+                    </div>
+                )
         }
     }
 
