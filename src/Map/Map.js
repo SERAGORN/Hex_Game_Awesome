@@ -29,8 +29,6 @@ import './Map.css'
   }
 
   componentDidMount(){
-    this.props.store.userIndex = 1
-    this.props.store.currentMove = 1
     this.props.store.winX = 7
     this.props.store.winY = 7
     console.log(this.props.store.users)
@@ -211,7 +209,7 @@ import './Map.css'
                       if(((users[i].y - index) < 3) && ((users[i].y - index) > -3)){
                         if(users[0]){
                           if(users[0].x === hex_map.x[counter] && users[0].y === index){
-                            curPos = { backgroundColor: users[0].color }
+                              curPos = { backgroundImage: "url("+users[i].img+")", backgroundSize: 'contain', backgroundRepeat: "no-repeat" }                            
                           }
                         }
                         if(userIndex === i){
@@ -226,7 +224,7 @@ import './Map.css'
                       if((users[i].y - index) < 3 && (users[i].y - index) > 0 || ((index - users[i].y) < 2 && index - users[i].y > -1) ){
                         if(users[0]){
                           if(users[0].x === hex_map.x[counter] && users[0].y === index){
-                            curPos = { backgroundColor: users[0].color }
+                              curPos = { backgroundImage: "url("+users[i].img+")", backgroundSize: 'contain', backgroundRepeat: "no-repeat" }                            
                           }
                         }
                         if(userIndex === i){
@@ -241,7 +239,7 @@ import './Map.css'
                       if((users[i].y - index) < 2 && (users[i].y - index) > -1 || ((index - users[i].y) < 2 && index - users[i].y > -1) ){
                         if(users[0]){
                           if(users[0].x === hex_map.x[counter] && users[0].y === index){
-                            curPos = { backgroundColor: users[0].color }
+                              curPos = { backgroundImage: "url("+users[i].img+")", backgroundSize: 'contain', backgroundRepeat: "no-repeat" }                            
                           }
                         }
                         if(userIndex === i){
@@ -257,7 +255,7 @@ import './Map.css'
                       if(((users[i].y - index) < 3) && ((users[i].y - index) > -3)){
                         if(users[0]){
                           if(users[0].x === hex_map.x[counter] && users[0].y === index){
-                            curPos = { backgroundColor: users[0].color }
+                              curPos = { backgroundImage: "url("+users[i].img+")", backgroundSize: 'contain', backgroundRepeat: "no-repeat" }                            
                           }
                         }
                         if(userIndex === i){
@@ -272,7 +270,7 @@ import './Map.css'
                       if((users[i].y - index) < 2 && (users[i].y - index) > -1 || ((index - users[i].y) < 3 && index - users[i].y > 0) ){
                         if(users[0]){
                           if(users[0].x === hex_map.x[counter] && users[0].y === index){
-                            curPos = { backgroundColor: users[0].color }
+                              curPos = { backgroundImage: "url("+users[i].img+")", backgroundSize: 'contain', backgroundRepeat: "no-repeat" }                            
                           }
                         }
                         if(userIndex === i){
@@ -287,7 +285,7 @@ import './Map.css'
                       if((users[i].y - index) < 2 && (users[i].y - index) > -1 || ((index - users[i].y) < 2 && index - users[i].y > -1) ){
                         if(users[0]){
                           if(users[0].x === hex_map.x[counter] && users[0].y === index){
-                            curPos = { backgroundColor: users[0].color }
+                              curPos = { backgroundImage: "url("+users[i].img+")", backgroundSize: 'contain', backgroundRepeat: "no-repeat" }                            
                           }
                         }
                         if(userIndex === i){
@@ -366,12 +364,12 @@ import './Map.css'
   changePos=(coord, movable)=>{
     if(this.props.store.currentMove === this.props.store.userIndex){
       if(movable === 1){
-        let users = this.props.store.users, winZlo = 0
-        
+        let users = this.props.store.users, winZlo = 0, alive
         if(this.props.store.userIndex === 0){
           for(let i=1;i<users.length;i++){
             if(users[0].x === users[i].x && users[0].y === users[i].y){
               this.props.store.users[i].alive = 0
+              console.log(i)
               // this.props.store.userDied(i)
             }
             if(this.props.store.users[i].alive === 1){
@@ -379,14 +377,25 @@ import './Map.css'
             }
           }
           if(winZlo === 0){
-            console.log("winZlo")
+            this.props.store.winner = 0
+            console.log("zlo win")
           }
         } else {
           if(coord.x === this.props.store.winX && coord.y === this.props.store.winY){
-            alert('dobro win')
+            this.props.store.winner = 1
+            console.log("dobro win")
           }
         }
-        this.props.store.startMove(coord.x, coord.y, this.props.store.userIndex)
+        for(let i = this.props.store.currentMove;i<this.props.store.users.length;i++){
+          if(this.props.store.currentMove < this.props.store.users.length - 1){
+              if(this.props.store.users[i+1].alive == 1){
+                  this.props.store.currentMove++
+              } else continue
+          } else {
+              this.props.store.currentMove = 0
+          }
+        }
+        this.props.store.startMove(coord.x, coord.y, this.props.store.users[this.props.store.userIndex].alive)
       }
     }
   }

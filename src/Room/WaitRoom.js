@@ -15,7 +15,7 @@ import head4 from '../assets/persons/4.png';
     }
 
     componentDidMount() {
-        this.props.store.socketConnect()
+        this.props.store.listener()
     }
     renderWindow () {
         return this.props.store.first_ob
