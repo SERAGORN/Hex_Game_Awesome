@@ -4,7 +4,7 @@ import './App.css';
 
 import Room from './Room/Room';
 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Route, Link } from "react-router-dom";
 
 import {Provider} from 'mobx-react'
 import Store from './store/index'
