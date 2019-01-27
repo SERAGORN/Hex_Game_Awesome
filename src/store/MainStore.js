@@ -22,7 +22,7 @@ export default class First {
     @observable users_in_room = []
 
     @action socketConnect = () => {
-            this.socket = io("http://192.168.77.88:3010/")
+            this.socket = io("http://192.168.77.46:3010/")
             // this.socket.emit('user_join',{
             //     name: this.name
             // })
@@ -34,7 +34,7 @@ export default class First {
             "room" : this.room_name,
             "status": "move",
             "name" : this.users[this.userIndex].name,
-            "index" : this.userIndex,
+            "index" : this.currentMove,
             "x":  x,
             "y":  y,
             "alive": alive
@@ -44,7 +44,6 @@ export default class First {
     @action listener = () => {
         this.socket.on(this.room_name,(msg)=>{
             console.log(msg)
-            console.log(this.users)
             if(msg.status == "start_game"){
                 this.updater = 1
                 this.currentMove = 1
@@ -52,6 +51,20 @@ export default class First {
             if(msg.status == "move") {
                 this.users[msg.index].x = msg.x
                 this.users[msg.index].y = msg.y
+                // for(let i = this.currentMove;i<this.users.length;i++){
+                //     if(this.currentMove < this.users.length - 1){
+                //         if(this.users[i+1].alive == 1){
+                //             this.currentMove++
+                //         }
+                //     } else {
+                //         this.currentMove = 0
+                //     }
+                // }
+                if(this.currentMove < this.users.length-1){
+                    this.currentMove++
+                } else {
+                    this.currentMove = 0
+                }
             }
         })
     }
@@ -63,18 +76,37 @@ export default class First {
                 "name": name
             })
             this.socket.on(this.room_name, (msg) =>{
-                console.log(msg)
-                // this.socket.emit('join_room', {
-                //     room: this.room_name,
-                //     status: 'user_join',
-                //     name: this.name
-                // })
-                if(msg.users){
-                    for(let i=msg.users[msg.users.length - 1];i<msg.users.length;i++){
-                        this.users.push(msg.users[i])
+                if(msg.status !== "start_game"){
+                    if(msg.status !== "move"){
+                        console.log(msg)
+                        // this.socket.emit('join_room', {
+                        //     room: this.room_name,
+                        //     status: 'user_join',
+                        //     name: this.name
+                        // })
+                        this.userIndex = 0
+                        if(msg.users){
+                            console.log(JSON.stringify(this.users))
+                            let kek
+                            console.log(msg.users[0])
+                            kek = JSON.parse(JSON.stringify(this.users))
+                            kek.push(msg.users[0])
+                            this.users = kek
+                        } else {
+                            let lel
+                            for(let i=1;i<msg.data.users.length;i++){
+                                if(!this.users[i]){
+                                    lel = JSON.parse(JSON.stringify(this.users))
+                                    console.log(lel)
+                                    lel.push(msg.data.users[i])
+                                    this.users = lel
+                                    console.log(this.users)
+                                }
+                            }
+                        }
+                        this.users_in_room = msg;
                     }
                 }
-                this.users_in_room = msg;
             })
          }
     }    
@@ -91,12 +123,22 @@ export default class First {
                 //     status: 'user_join',
                 //     name: this.name
                 // })
-                if(msg.users){
-                    for(let i=0;i<msg.users.length;i++){
-                        this.users.push(msg.users[i])
+                if(msg.status !== "start_game"){
+                    if(msg.status !== "move"){
+                        console.log(msg)
+                        if(msg.data.users){
+                            for(let i=0;i<msg.data.users.length;i++){
+                                if(!this.users[i]){
+                                    this.users.push(msg.data.users[i])
+                                }
+                            }
+                        }
+                        if(!this.userIndex){
+                            this.userIndex = msg.index
+                        }
+                        this.users_in_room = msg;
                     }
                 }
-                this.users_in_room = msg;
             })
         }
     }
@@ -117,21 +159,21 @@ export default class First {
         })
     }
 
-    @action sendMove = (x,y) => {
-        this.socket.emit(this.room_name, {
-            "name": this.users[this.userIndex].name,
-            "index": this.userIndex,
-            "x": x,
-            "y": y,
-            "status": "move",
+    // @action sendMove = (x,y) => {
+    //     this.socket.emit(this.room_name, {
+    //         "name": this.users[this.userIndex].name,
+    //         "index": this.userIndex,
+    //         "x": x,
+    //         "y": y,
+    //         "status": "move",
             
-        })
-    }
+    //     })
+    // }
 
     @action startGame = () => {
         this.socket.emit("start", {
             "room": this.room_name,
-            "status": "start",
+            "status": "start_game",
         })
     }
 }
