@@ -18,30 +18,29 @@ import './Room.css'
     }
 
     renderMessage() {
-        if (this.props.store.message) {
-            return (
-                <div>
-                    {this.props.store.message.map(row => {
-                        return  (
-                        <div>
-                            {row.message}
-                        </div>
-                        )
-                    })}
-                </div>
-            )
+        if (this.props.store.messages) {
+            let messages = this.props.store.messages
+                return (
+                    <div>
+                        {messages.map(row => {
+                            return  (
+                            <div>
+                            {row.name+"-"+row.messa}
+                            </div>
+                            )
+                        })}
+                    </div>
+                )
         }
     }
 
     renderUsers() {
         let users
         if (this.props.store.users_in_room.room){
-            console.log(this.props.store.users_in_room.users)
           users = this.props.store.users_in_room.users
-            console.log(users)
                 return (
-                    <div>
-                        ИГРОКИ
+                    <div className = "player-in-lobby">
+                        PLAYER IN LOBBY 
                         {users.map(row => {
                             return  (
                             <div>
@@ -77,8 +76,8 @@ import './Room.css'
 
     render() {
         return (
-            <div className="room-container-wait-room">
-                {this.props.store.first_ob}
+            <div className="room-container-wait-room" style={{zIndex: 1}}>
+                {this.props.store.first_ob+"<"+this.props.store.room_name+">"}
                 {this.renderMessage()}
                 {this.renderMessageSend()}
                 {this.renderUsers()}

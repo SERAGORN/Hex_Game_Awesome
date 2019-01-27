@@ -27,7 +27,7 @@ import './Room.css'
                     this.setState({
                         name: evt.target.value
                     }, () => {
-                        this.props.store.users.push({name: this.state.name})
+                        this.props.store.name = this.state.name
                     })}/>
             </div>
             <div>
@@ -40,7 +40,7 @@ import './Room.css'
                         this.props.store.room_status = 'create_room'
                         })}/>
             </div>
-            <div>
+            <div style={{marginTop: "-10px", paddingBottom: "20px"}}>
                 <NavLink to={this.props.path_to+"/go"} onClick={() => this.props.store.createRoom()}>Create Lobby</NavLink>
             </div>
             <div>Lobby Name</div>
@@ -51,7 +51,7 @@ import './Room.css'
                     this.props.store.room_name = this.state.name_roow_2
                     this.props.store.room_status = 'join_room'
                     })}/>
-            <div>
+            <div style={{marginTop: "-10px"}}>
                 <NavLink to={this.props.path_to+"/go"} onClick={() => this.props.store.joinRooom()}>Join Lobby</NavLink>
             </div>
         </div>
@@ -66,7 +66,7 @@ import './Room.css'
 
     render() {
         return (
-            <div className="room-container-join">
+            <div className="room-container-join" style={{zIndex: 1}}>
                 {this.renderWindow()}
             </div>
         )

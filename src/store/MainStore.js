@@ -14,10 +14,11 @@ export default class First {
 
 
     @observable users = []
+    @observable messages = []
 
     @observable room_status = ""
 
-    @observable first_ob = "Лобби"
+    @observable first_ob = "Lobby"
     @observable users_in_room = []
 
     @action socketConnect = () => {
@@ -41,7 +42,7 @@ export default class First {
     @action startMove = (x,y) => {
         this.socket.emit("go", {
             "room" : this.room_name,
-            "name" : this.users[this.userIndex].name,
+            "name" : this.name,
             "index" : this.userIndex,
             "x":  x,
             "y":  y
@@ -84,14 +85,15 @@ export default class First {
         }
     }
     @action sendMessage = (msg) => {
-        console.log(msg)
         this.socket.emit("chat_mess" , {
             "message": msg,
             "name": this.name,
             "room": this.room_name
         })
         this.socket.on("chat_mess", (msg) =>{
-            console.log(JSON.stringify(msg))
+            console.log(msg)
+            this.messages = msg
+            
             // this.socket.emit('join_room', {
             //     room: this.room_name,
             //     status: 'user_join',
@@ -102,7 +104,7 @@ export default class First {
 
     @action sendMove = (x,y) => {
         this.socket.emit(this.room_name, {
-            "name": this.users[this.userIndex].name,
+            "name": this.name,
             "index": this.userIndex,
             "x": x,
             "y": y,
@@ -113,7 +115,7 @@ export default class First {
 
     @action startGame = () => {
         this.socket.emit("start", {
-            "name": this.users[this.userIndex].name,
+            "name": this.name,
             "room": this.room_name,
             "status": "start",
         })
