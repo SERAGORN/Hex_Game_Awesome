@@ -7,9 +7,12 @@ import hex3 from '../assets/hex/3.png'
 import hex4 from '../assets/hex/4.png'
 import hex5 from '../assets/hex/5.png'
 
-import wizard from '../assets/persons/zloi.png'
+import wizard from '../assets/persons/24.png'
 
-import good from '../assets/persons/12.gif'
+import good from '../assets/persons/23.png'
+
+
+
 
 
 
@@ -32,6 +35,16 @@ import './Map.css'
     this.props.store.winX = 7
     this.props.store.winY = 7
     console.log(this.props.store.users)
+    if(this.props.store.users){
+      if(this.props.store.userIndex === 0){
+        this.props.store.users[0]["img"]= wizard
+
+      } else {
+        for(let i=1;i<this.props.store.users.length;i++){
+          this.props.store.users[i]["img"]= good
+        }
+      }
+    }
   }
 
   randomHex = (x, y) => {
@@ -52,14 +65,7 @@ import './Map.css'
     let a = 20, 
         b = 2*a*Math.sqrt(3)
     if(this.props.store.users){
-      if(this.props.store.userIndex === 0){
-        this.props.store.users[0].img = wizard
 
-      } else {
-        for(let i=1;i<this.props.store.users.length;i++){
-          this.props.store.users[i].img = good
-        }
-      }
       return (
         <Fragment>
           {hex_map.y.map((row, index) => {
@@ -332,8 +338,8 @@ import './Map.css'
 
   mapRender = () => {
     let a,b;
-    a = 40
-    b = 24
+    a = 30
+    b = 16
     let hex_map = {}
     hex_map.x = []
     hex_map.y = []

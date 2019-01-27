@@ -43,9 +43,9 @@ import { observer, inject } from 'mobx-react';
     render() {
         return (
             <div className="UIBottom-container">
-                {this.renderTools()}
+                {/* {this.renderTools()}
                 {this.renderPerson()}
-                {/* {this.otherPersons()} */}
+                {this.otherPersons()} */}
             </div>
         );
     }
