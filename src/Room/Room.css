@@ -11,9 +11,42 @@
 .room-window {
     width: 600px;
     height: 500px;
-    background-color: #52637d;
+    background-image: url(https://st4.depositphotos.com/11911276/19794/v/600/depositphotos_197947710-stock-video-abstract-background-8-bit-wall.jpg);
     display: flex;
-    background-color: #52637d;
     justify-content: center;
     align-items: center;
+    position: relative;
+}
+.room-window-background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: #00000040;
+}
+.player-in-lobby {
+    position: absolute;
+    left: 20px;
+    top: 213px;
+    font-size: 12px;
+}
+.render-message {
+    position: absolute;
+    right: 85px;
+    top: 213px;
+    font-size: 12px;
+    width: 40px;
+}
+.header-logo {
+    background-image: url(../assets/header.png);
+    position: absolute;
+    top: -30px;
+    width: 100%;
+    height: 150px;
+}
+.head-logo {
+    display: flex;
+}
+.head-logo-user {
+    width: 30px;
+    height: 30px;
 }
