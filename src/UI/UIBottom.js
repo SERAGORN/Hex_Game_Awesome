@@ -17,7 +17,7 @@ import { observer, inject } from 'mobx-react';
     renderPerson = () => {
         return (
             <div className="UIBottom-person">
-                <div></div>
+                <div>{this.props.store.currentMove}</div>
             </div>
         )
     }
