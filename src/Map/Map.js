@@ -52,6 +52,14 @@ import './Map.css'
     let a = 20, 
         b = 2*a*Math.sqrt(3)
     if(this.props.store.users){
+      if(this.props.store.userIndex === 0){
+        this.props.store.users[0].img = wizard
+
+      } else {
+        for(let i=1;i<this.props.store.users.length;i++){
+          this.props.store.users[i].img = good
+        }
+      }
       return (
         <Fragment>
           {hex_map.y.map((row, index) => {
@@ -362,6 +370,9 @@ import './Map.css'
   }
 
   changePos=(coord, movable)=>{
+    console.log(this.props.store.currentMove)
+    console.log(this.props.store.userIndex)
+
     if(this.props.store.currentMove === this.props.store.userIndex){
       if(movable === 1){
         let users = this.props.store.users, winZlo = 0, alive
@@ -386,15 +397,7 @@ import './Map.css'
             console.log("dobro win")
           }
         }
-        for(let i = this.props.store.currentMove;i<this.props.store.users.length;i++){
-          if(this.props.store.currentMove < this.props.store.users.length - 1){
-              if(this.props.store.users[i+1].alive == 1){
-                  this.props.store.currentMove++
-              } else continue
-          } else {
-              this.props.store.currentMove = 0
-          }
-        }
+
         this.props.store.startMove(coord.x, coord.y, this.props.store.users[this.props.store.userIndex].alive)
       }
     }
