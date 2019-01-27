@@ -11,7 +11,7 @@ import './Room.css'
     }
 
     componentDidMount() {
-        this.props.store.socketConnect()
+        this.props.store.listener()
     }
     renderWindow () {
         return this.props.store.first_ob

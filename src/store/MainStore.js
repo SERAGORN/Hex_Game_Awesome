@@ -10,6 +10,7 @@ export default class First {
     @observable currentMove = 0
     @observable userIndex = 0
     @observable updater = 0
+    @observable winner = null
 
 
 
@@ -25,60 +26,76 @@ export default class First {
             // this.socket.emit('user_join',{
             //     name: this.name
             // })
-            this.socket.on(this.room_name,(msg)=>{
-                console.log(msg)
-                if(msg.status == "start_game"){
-                    this.updater = 1
-                }
-                if(msg.status == "move") {
-
-                }
-            })
             console.log(this.room_status)
-            console.log(this.room_name)
     }
 
-    @action startMove = (x,y) => {
-        this.socket.emit("go", {
+    @action startMove = (x,y,alive) => {
+        this.socket.emit("send_move", {
             "room" : this.room_name,
+            "status": "move",
             "name" : this.users[this.userIndex].name,
             "index" : this.userIndex,
             "x":  x,
-            "y":  y
+            "y":  y,
+            "alive": alive
         })
     }
 
-    @action createRoom = () => {
+    @action listener = () => {
+        this.socket.on(this.room_name,(msg)=>{
+            console.log(msg)
+            console.log(this.users)
+            if(msg.status == "start_game"){
+                this.updater = 1
+                this.currentMove = 1
+            }
+            if(msg.status == "move") {
+                this.users[msg.index].x = msg.x
+                this.users[msg.index].y = msg.y
+            }
+        })
+    }
+
+    @action createRoom = (name) => {
         if (this.room_status == 'create_room') {
             this.socket.emit(this.room_status, {
                 "room": this.room_name,
-                "name": this.name
+                "name": name
             })
             this.socket.on(this.room_name, (msg) =>{
-                console.log(JSON.stringify(msg))
+                console.log(msg)
                 // this.socket.emit('join_room', {
                 //     room: this.room_name,
                 //     status: 'user_join',
                 //     name: this.name
                 // })
+                if(msg.users){
+                    for(let i=msg.users[msg.users.length - 1];i<msg.users.length;i++){
+                        this.users.push(msg.users[i])
+                    }
+                }
                 this.users_in_room = msg;
             })
          }
     }    
 
-    @action joinRooom = () => {
+    @action joinRooom = (name) => {
         if (this.room_status == 'join_room') {
             this.socket.emit('join_room', {
                 "room": this.room_name,
-                "name": this.name
+                "name": name
             })
             this.socket.on(this.room_name, (msg) =>{
-                console.log(JSON.stringify(msg))
                 // this.socket.emit('join_room', {
                 //     room: this.room_name,
                 //     status: 'user_join',
                 //     name: this.name
                 // })
+                if(msg.users){
+                    for(let i=0;i<msg.users.length;i++){
+                        this.users.push(msg.users[i])
+                    }
+                }
                 this.users_in_room = msg;
             })
         }
@@ -113,7 +130,6 @@ export default class First {
 
     @action startGame = () => {
         this.socket.emit("start", {
-            "name": this.users[this.userIndex].name,
             "room": this.room_name,
             "status": "start",
         })

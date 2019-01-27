@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { NavLink } from "react-router-dom";
 import { observer, inject } from 'mobx-react';
 
-
 import './Room.css'
 
 @inject('store')
@@ -14,7 +13,6 @@ import './Room.css'
     }
 
     componentDidMount() {
-        console.log("aaaa")
         this.props.store.socketConnect()
     }
 
@@ -26,8 +24,6 @@ import './Room.css'
                 <input className="room-name-input" value={this.state.name} onChange={(evt)=>
                     this.setState({
                         name: evt.target.value
-                    }, () => {
-                        this.props.store.users.push({name: this.state.name})
                     })}/>
             </div>
             <div>
@@ -41,7 +37,7 @@ import './Room.css'
                         })}/>
             </div>
             <div>
-                <NavLink to={this.props.path_to+"/go"} onClick={() => this.props.store.createRoom()}>Create Lobby</NavLink>
+                <NavLink to={this.props.path_to+"/go"} onClick={() => this.props.store.createRoom(this.state.name)}>Create Lobby</NavLink>
             </div>
             <div>Lobby Name</div>
             <input className="room-name-input" value={this.state.name_roow_2} onChange={(evt)=>
@@ -50,9 +46,10 @@ import './Room.css'
                 }, () => {
                     this.props.store.room_name = this.state.name_roow_2
                     this.props.store.room_status = 'join_room'
-                    })}/>
+                })}
+            />
             <div>
-                <NavLink to={this.props.path_to+"/go"} onClick={() => this.props.store.joinRooom()}>Join Lobby</NavLink>
+                <NavLink to={this.props.path_to+"/go"} onClick={() => this.props.store.joinRooom(this.state.name)}>Join Lobby</NavLink>
             </div>
         </div>
         )
@@ -61,7 +58,6 @@ import './Room.css'
     joinLogic=(evt)=>{
 
     }
-
     
 
     render() {
