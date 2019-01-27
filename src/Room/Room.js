@@ -18,6 +18,7 @@ import WaitRoom from "./WaitRoom"
     renderWindow () {
         return (
             <div class="room-window">
+            <div className="header-logo"></div>
             <div className="room-window-background"></div>
                 <Route exact path={this.props.match.path}   component={() => <Join path_to = {this.props.match.path}/>}/>
                 {this.windowSwitch()}
